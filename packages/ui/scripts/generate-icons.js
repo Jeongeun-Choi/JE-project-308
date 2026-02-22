@@ -34,6 +34,15 @@ const generateIcons = () => {
       ? toPascalCase(fileName)
       : `Ic${toPascalCase(fileName)}`;
 
+    const componentFilePath = path.join(OUTPUT_DIR, `${componentName}.tsx`);
+
+    // Check if the component already exists
+    if (fs.existsSync(componentFilePath)) {
+      console.log(`Skipped existing icon: ${componentName}`);
+      exportStatements.push(`export * from './${componentName}';`);
+      return;
+    }
+
     const filePath = path.join(ASSETS_DIR, file);
     let svgContent = fs.readFileSync(filePath, 'utf8');
 
