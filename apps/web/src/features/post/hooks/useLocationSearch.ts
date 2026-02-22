@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { KakaoPlace, KakaoSearchResponse } from '../types/search';
 
 interface UseLocationSearchProps {
-  currentLocation?: { lat: number; lng: number };
+  currentLocation?: { lat: number; lng: number } | null;
 }
 
 export const useLocationSearch = ({

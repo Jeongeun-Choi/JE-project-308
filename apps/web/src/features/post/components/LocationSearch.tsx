@@ -4,7 +4,7 @@ import * as styles from './styles/LocationSearch.css';
 import { IcSearch, IcMarker } from '@pin-plate/ui';
 
 interface LocationSearchProps {
-  currentLocation?: { lat: number; lng: number };
+  currentLocation?: { lat: number; lng: number } | null;
   onSelectPlace?: (place: KakaoPlace) => void;
 }
 

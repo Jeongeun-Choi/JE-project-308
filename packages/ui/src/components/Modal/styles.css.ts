@@ -10,6 +10,7 @@ export const overlay = style({
   backgroundColor: vars.colors.overlay, // Use token
   display: 'flex',
   justifyContent: 'center',
+  zIndex: 1,
 
   // Mobile: Full screen logic
   alignItems: 'flex-start', // Start from top

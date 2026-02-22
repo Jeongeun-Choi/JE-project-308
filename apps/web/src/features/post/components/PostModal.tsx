@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { Button, Modal } from '@pin-plate/ui';
 import PostForm from './PostForm';
 import { usePostForm } from '../hooks/usePostForm';
@@ -13,7 +14,11 @@ interface PostModalProps {
 export const PostModal = ({ isOpen, onClose }: PostModalProps) => {
   const { formState, handlers, submit } = usePostForm(onClose);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (!isOpen) {
+      handlers.resetForm();
+    }
+  }, [isOpen, handlers]); // Only running when isOpen changes
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
