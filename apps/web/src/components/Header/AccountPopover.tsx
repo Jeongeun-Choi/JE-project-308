@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { IcSettings, IcLogout, IcUser } from '@pin-plate/ui/icons';
+import { IcLogout, IcUser } from '@pin-plate/ui/icons';
 import * as styles from './AccountPopover.css';
 
 interface AccountPopoverProps {
@@ -85,9 +85,7 @@ export const AccountPopover = ({
       </div>
       <div className={styles.bottomSection}>
         <button className={styles.menuItem} onClick={handleMyPageClick}>
-          <div className={styles.standardMenuIcon}>
-            <IcSettings width={20} height={20} color="currentColor" />
-          </div>
+          <div className={styles.standardMenuIcon}></div>
           <span className={styles.standardMenuText}>마이페이지</span>
         </button>
         <button className={styles.menuItem} onClick={handleLogoutClick}>
