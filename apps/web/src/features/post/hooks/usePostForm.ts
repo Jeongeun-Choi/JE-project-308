@@ -19,6 +19,13 @@ export const usePostForm = (onSuccess?: () => void) => {
     setSelectedPlace(place);
   };
 
+  const resetForm = () => {
+    setContent('');
+    setRating(0);
+    setPhotos([]);
+    setSelectedPlace(null);
+  };
+
   // Fixing the bug: The original code had a separate logic inside handleFileChange.
   // It calculated tempUrls and S3 URLs.
   // Actually, I should fix the uploading state logic.
@@ -128,6 +135,7 @@ export const usePostForm = (onSuccess?: () => void) => {
       });
 
       alert('게시글이 등록되었습니다!');
+      resetForm();
       onSuccess?.();
     } catch (error) {
       console.error(error);
@@ -152,6 +160,7 @@ export const usePostForm = (onSuccess?: () => void) => {
       },
       fetchCurrentLocation,
       handlePlaceSelect,
+      resetForm,
     },
     submit: handleSubmit,
   };
