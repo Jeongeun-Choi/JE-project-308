@@ -6,7 +6,7 @@ import * as styles from './styles/MobileLocationSearch.css';
 import { IcSearch, IcMarker, IcDismiss } from '@pin-plate/ui';
 
 interface MobileLocationSearchProps {
-  currentLocation?: { lat: number; lng: number };
+  currentLocation?: { lat: number; lng: number } | null;
   onSelectPlace?: (place: KakaoPlace) => void;
   onClose: () => void;
   isOpen: boolean;

@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext, useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { ModalContext } from './context';
 
 export interface ModalProps extends PropsWithChildren {

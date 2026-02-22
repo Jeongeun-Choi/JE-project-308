@@ -15,7 +15,7 @@ interface PostFormProps {
     rating: number;
     photos: string[];
     selectedPlace: KakaoPlace | null;
-    currentLocation?: { lat: number; lng: number };
+    currentLocation?: { lat: number; lng: number } | null;
   };
   handlers: {
     setContent: (content: string) => void;
