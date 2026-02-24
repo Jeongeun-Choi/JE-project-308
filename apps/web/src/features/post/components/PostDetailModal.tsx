@@ -78,7 +78,7 @@ const PostDetailInner = ({ id }: { id: string }) => {
           >
             완료
           </Button>
-          <Button onClick={handleCancelEditing} variant="danger" size="full">
+          <Button onClick={handleCancelEditing} variant="secondary" size="full">
             취소
           </Button>
         </Modal.Footer>
