@@ -6,6 +6,8 @@ import { viewModeAtom } from '@/app/atoms';
 import * as styles from './Header.css';
 import { isPostModalOpenAtom } from '@/features/post/atoms';
 import { AccountPopover } from './AccountPopover';
+import { useQueryClient } from '@tanstack/react-query';
+import { MY_PAGE_KEYS, getMyProfile } from '@/features/my-page';
 
 export const Header = () => {
   const [viewMode, setViewMode] = useAtom(viewModeAtom);
@@ -13,6 +15,14 @@ export const Header = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const router = useRouter();
   const setIsPostModalOpen = useSetAtom(isPostModalOpenAtom);
+  const queryClient = useQueryClient();
+
+  const handleProfileHover = () => {
+    queryClient.prefetchQuery({
+      queryKey: MY_PAGE_KEYS.profile(),
+      queryFn: getMyProfile,
+    });
+  };
 
   const togglePopover = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -78,7 +88,11 @@ export const Header = () => {
 
         {/* Profile Icon */}
         <div style={{ position: 'relative' }}>
-          <div className={styles.profileIcon} onClick={togglePopover}>
+          <div
+            className={styles.profileIcon}
+            onClick={togglePopover}
+            onMouseEnter={handleProfileHover}
+          >
             <IcUser width={20} height={20} color="currentColor" />
           </div>
           {isPopoverOpen && (

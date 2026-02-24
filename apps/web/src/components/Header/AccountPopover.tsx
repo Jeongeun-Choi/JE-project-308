@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { IcLogout, IcUser } from '@pin-plate/ui/icons';
 import * as styles from './AccountPopover.css';
+import { useMyProfile } from '@/features/my-page';
 
 interface AccountPopoverProps {
   onClose: () => void;
@@ -13,9 +14,22 @@ export const AccountPopover = ({
   onClose,
   anchorElement,
 }: AccountPopoverProps) => {
+  const [positionStyle, setPositionStyle] = useState<React.CSSProperties>({});
   const popoverRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const [positionStyle, setPositionStyle] = useState<React.CSSProperties>({});
+
+  const { data: profile } = useMyProfile();
+
+  const handleMyPageClick = () => {
+    onClose();
+    router.push('/my-page');
+  };
+
+  const handleLogoutClick = () => {
+    onClose();
+    // TODO: implement actual logout logic
+    alert('로그아웃 기능은 아직 구현되지 않았습니다.');
+  };
 
   useEffect(() => {
     const updatePosition = () => {
@@ -40,17 +54,6 @@ export const AccountPopover = ({
       window.removeEventListener('scroll', updatePosition, true);
     };
   }, [anchorElement]);
-
-  const handleMyPageClick = () => {
-    onClose();
-    router.push('/my-page');
-  };
-
-  const handleLogoutClick = () => {
-    onClose();
-    // TODO: implement actual logout logic
-    alert('로그아웃 기능은 아직 구현되지 않았습니다.');
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -79,8 +82,10 @@ export const AccountPopover = ({
           <IcUser width={32} height={32} color="currentColor" />
         </div>
         <div className={styles.userInfo}>
-          <p className={styles.userName}>사용자</p>
-          <p className={styles.userEmail}>demo@pinplate.com</p>
+          <p className={styles.userName}>
+            {profile?.nickname || profile?.name}
+          </p>
+          <p className={styles.userEmail}>{profile?.email}</p>
         </div>
       </div>
       <div className={styles.bottomSection}>
