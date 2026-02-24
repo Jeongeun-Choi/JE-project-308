@@ -37,6 +37,6 @@ export const starOverlay = style({
   left: 0,
   overflow: 'hidden',
   whiteSpace: 'nowrap',
-  color: vars.colors.primary.default,
+  color: '#F4C075',
   pointerEvents: 'none',
 });

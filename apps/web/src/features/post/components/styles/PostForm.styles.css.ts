@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@pin-plate/ui';
 
 export const label = style({
-  color: vars.colors.primary.text,
+  color: vars.colors.text.primary,
   fontSize: vars.fontSize.sm,
   fontWeight: vars.fontWeight.bold,
 });
