@@ -34,10 +34,6 @@ export default function EditPostContent({
 
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
-  useEffect(() => {
-    fetchCurrentLocation();
-  }, [fetchCurrentLocation]);
-
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handlePhotoAddClick = () => {
@@ -58,6 +54,10 @@ export default function EditPostContent({
       fileInputRef.current.value = '';
     }
   };
+
+  useEffect(() => {
+    fetchCurrentLocation();
+  }, [fetchCurrentLocation]);
 
   return (
     <>
