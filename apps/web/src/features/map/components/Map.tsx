@@ -2,10 +2,11 @@
 
 import Script from 'next/script';
 import { useEffect, useRef, useState } from 'react';
-import * as styles from './Map.styles.css';
+import { vars } from '@pin-plate/ui';
 import { useRouter } from 'next/navigation';
+import * as styles from './Map.styles.css';
 import { usePosts } from '@/features/post/hooks/usePosts';
-import { getMarkerIcon } from '../utils/marker';
+import { getPinIcon } from '../utils/marker';
 
 export const Map = () => {
   const router = useRouter();
@@ -115,15 +116,21 @@ export const Map = () => {
 
       // Add new markers
       posts.forEach((post) => {
-        const markerContent = getMarkerIcon();
+        const pinWidth = 40;
+        const pinHeight = pinWidth * 2;
+        const markerContent = getPinIcon(
+          vars.colors.primary.default,
+          pinWidth,
+          pinHeight,
+        ); // 브랜드 컬러 등 원하는 색상 밎 크기 주입
 
         const marker = new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(post.lat, post.lng),
           map: map,
           icon: {
             content: markerContent,
-            size: new window.naver.maps.Size(34, 42),
-            anchor: new window.naver.maps.Point(17, 42),
+            // size: new window.naver.maps.Size(pinWidth, pinHeight),
+            anchor: new window.naver.maps.Point(pinWidth / 2, pinHeight),
           },
         });
 
