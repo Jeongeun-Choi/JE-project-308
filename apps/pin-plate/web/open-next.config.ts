@@ -2,7 +2,7 @@
 // = "next build --webpack" → Vanilla Extract webpack 플러그인 정상 작동
 const config = {
   default: {},
-  buildCommand: "pnpm build",
+  buildCommand: 'pnpm build',
 };
 
 export default config;
