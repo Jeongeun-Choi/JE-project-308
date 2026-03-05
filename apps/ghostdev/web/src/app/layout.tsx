@@ -1,5 +1,13 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import { Space_Mono } from 'next/font/google';
+import '@/styles/global.css';
+
+const spaceMono = Space_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-space-mono',
+});
 
 export const metadata: Metadata = {
   title: 'GhostDev',
@@ -8,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={spaceMono.variable}>
       <body>{children}</body>
     </html>
   );

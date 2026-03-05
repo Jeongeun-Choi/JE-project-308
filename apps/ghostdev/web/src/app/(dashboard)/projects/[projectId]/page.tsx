@@ -1,5 +1,8 @@
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { KanbanBoard } from '@/components/KanbanBoard';
+import type { Ticket } from '@/types';
+import * as s from './page.css';
 
 interface Props {
   params: Promise<{ projectId: string }>;
@@ -28,10 +31,28 @@ export default async function ProjectPage({ params }: Props) {
     .order('priority');
 
   return (
-    <main>
-      <h1>{project.name}</h1>
-      <p>{project.repo_full_name}</p>
-      <pre>{JSON.stringify(projectTickets, null, 2)}</pre>
-    </main>
+    <div className={s.pageWrapper}>
+      <div className={s.pageHeader}>
+        <div>
+          <div className={s.breadcrumb}>
+            <span>⎇</span>
+            <span>NODE: {project.repo_full_name}</span>
+          </div>
+          <h1 className={s.pageTitle}>{project.name}</h1>
+        </div>
+        <button className={s.initTaskButton}>
+          <span className={s.initTaskInner}>
+            + INIT_TASK
+          </span>
+        </button>
+      </div>
+
+      <div className={s.boardWrapper}>
+        <KanbanBoard
+          tickets={(projectTickets ?? []) as Ticket[]}
+          projectId={projectId}
+        />
+      </div>
+    </div>
   );
 }
