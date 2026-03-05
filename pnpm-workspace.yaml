@@ -1,4 +1,5 @@
 packages:
   - "apps/*"
   - "apps/pin-plate/*"
+  - "apps/ghostdev/*"
   - "packages/*"
