@@ -33,31 +33,6 @@ export const pageTitle = style({
   textTransform: 'uppercase',
 });
 
-export const initTaskButton = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: vars.space.xs,
-  padding: `${vars.space.sm} ${vars.space.lg}`,
-  backgroundColor: vars.color.magenta,
-  color: vars.color.bg,
-  fontSize: '13px',
-  fontWeight: 700,
-  letterSpacing: '0.1em',
-  cursor: 'pointer',
-  transform: 'skewX(-8deg)',
-  border: 'none',
-  transition: 'opacity 0.15s',
-  ':hover': {
-    opacity: 0.85,
-  },
-});
-
-export const initTaskInner = style({
-  transform: 'skewX(8deg)',
-  display: 'flex',
-  alignItems: 'center',
-  gap: vars.space.xs,
-});
 
 export const boardWrapper = style({
   flex: 1,

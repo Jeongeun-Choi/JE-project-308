@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { KanbanBoard } from '@/components/KanbanBoard';
+import { InitTaskButton } from '@/components/InitTaskButton';
 import type { Ticket } from '@/types';
 import * as s from './page.css';
 
@@ -40,11 +41,7 @@ export default async function ProjectPage({ params }: Props) {
           </div>
           <h1 className={s.pageTitle}>{project.name}</h1>
         </div>
-        <button className={s.initTaskButton}>
-          <span className={s.initTaskInner}>
-            + INIT_TASK
-          </span>
-        </button>
+        <InitTaskButton projectId={projectId} defaultBranch={project.default_branch} />
       </div>
 
       <div className={s.boardWrapper}>
