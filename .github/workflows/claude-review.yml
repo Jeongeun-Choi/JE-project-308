@@ -1,0 +1,29 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - pin-plate
+      - ghost-dev
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          direct_prompt: |
+            PR의 코드 변경사항을 리뷰해주세요. 다음 항목을 확인해주세요:
+            - 버그 가능성
+            - 코드 품질 및 가독성
+            - 타입 안정성 (TypeScript)
+            - 성능 이슈
+            - 보안 문제
+            한국어로 리뷰를 작성해주세요.
