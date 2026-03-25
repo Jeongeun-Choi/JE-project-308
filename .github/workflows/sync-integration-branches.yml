@@ -1,0 +1,50 @@
+name: Sync Integration Branches
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    strategy:
+      matrix:
+        branch: [pin-plate, ghost-dev]
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge main into ${{ matrix.branch }}
+        id: merge
+        run: |
+          git checkout ${{ matrix.branch }}
+          git merge origin/main --no-edit || echo "conflict=true" >> $GITHUB_OUTPUT
+
+      - name: Push if no conflict
+        if: steps.merge.outputs.conflict != 'true'
+        run: git push origin ${{ matrix.branch }}
+
+      - name: Create PR on conflict
+        if: steps.merge.outputs.conflict == 'true'
+        run: |
+          git merge --abort
+          gh pr create \
+            --base ${{ matrix.branch }} \
+            --head main \
+            --title "chore: sync main → ${{ matrix.branch }}" \
+            --body "main 브랜치 변경사항을 ${{ matrix.branch }}에 머지하는 중 충돌이 발생했습니다. 수동으로 해결해주세요."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
