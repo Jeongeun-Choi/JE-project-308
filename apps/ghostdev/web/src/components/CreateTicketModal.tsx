@@ -30,7 +30,6 @@ export function CreateTicketModal({
   projectId,
   defaultBranch,
   onClose,
-  workspaceConfig: _workspaceConfig,
   defaultWorkspace,
 }: Props) {
   const router = useRouter();
@@ -42,7 +41,8 @@ export function CreateTicketModal({
 
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const { mutateAsync: submitTicket, isPending: isSubmitting } = useCreateTicket(projectId);
+  const { mutateAsync: submitTicket, isPending: isSubmitting } =
+    useCreateTicket(projectId);
 
   const branchPreview = useMemo(
     () => `${selectedPrefix.toLowerCase()}/${branchSlug}`,
@@ -83,7 +83,8 @@ export function CreateTicketModal({
       if (!directives.trim()) return;
 
       const slugAsWords = branchSlug.replace(/-/g, " ");
-      const ticketTitle = slugAsWords.charAt(0).toUpperCase() + slugAsWords.slice(1);
+      const ticketTitle =
+        slugAsWords.charAt(0).toUpperCase() + slugAsWords.slice(1);
 
       try {
         await submitTicket({
@@ -100,7 +101,17 @@ export function CreateTicketModal({
         // silently fail — no console.log in production
       }
     },
-    [directives, branchSlug, projectId, defaultBranch, defaultWorkspace, selectedPriority, submitTicket, router, onClose],
+    [
+      directives,
+      branchSlug,
+      projectId,
+      defaultBranch,
+      defaultWorkspace,
+      selectedPriority,
+      submitTicket,
+      router,
+      onClose,
+    ],
   );
 
   useEffect(() => {
@@ -110,14 +121,21 @@ export function CreateTicketModal({
   }, []);
 
   return (
-    <div className={s.overlay} onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <div
+      className={s.overlay}
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
       <div className={s.modal}>
         <div className={s.modalHeader}>
           <div className={s.titleGroup}>
             <span className={s.modalTitle}>INITIALIZE_HACK</span>
             <div className={s.titleAccent} />
           </div>
-          <button className={s.closeButton} onClick={onClose} aria-label="Close modal">
+          <button
+            className={s.closeButton}
+            onClick={onClose}
+            aria-label="Close modal"
+          >
             ✕
           </button>
         </div>
@@ -146,7 +164,11 @@ export function CreateTicketModal({
                     <button
                       key={prefix}
                       type="button"
-                      className={selectedPrefix === prefix ? s.prefixButtonActive : s.prefixButton}
+                      className={
+                        selectedPrefix === prefix
+                          ? s.prefixButtonActive
+                          : s.prefixButton
+                      }
                       onClick={() => handlePrefixSelect(prefix)}
                       aria-pressed={selectedPrefix === prefix}
                     >
@@ -164,7 +186,9 @@ export function CreateTicketModal({
                   id="priority-select"
                   className={s.prioritySelect}
                   value={selectedPriority}
-                  onChange={(e) => setSelectedPriority(e.target.value as Priority)}
+                  onChange={(e) =>
+                    setSelectedPriority(e.target.value as Priority)
+                  }
                 >
                   {PRIORITIES.map((p) => (
                     <option key={p} value={p}>
