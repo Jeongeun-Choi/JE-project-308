@@ -40,3 +40,9 @@ export async function fetchGitHubRepos() {
   if (!res.ok) throw new Error('레포 목록을 불러오지 못했습니다.');
   return res.json();
 }
+
+export async function fetchMonorepoConfig(owner: string, repo: string) {
+  const res = await fetch(`/api/github/detect-monorepo?owner=${owner}&repo=${repo}`);
+  if (!res.ok) return null;
+  return res.json();
+}
