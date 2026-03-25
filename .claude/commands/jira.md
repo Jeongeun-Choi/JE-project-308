@@ -74,6 +74,25 @@ argument-hint: 티켓 내용을 간략히 설명해주세요 (예: 로그인 API
      ```
    - 배경, 작업 범위(bulletList), 완료 조건(bulletList) 섹션을 heading으로 구분
 5. 생성된 티켓 URL을 반환
+6. 티켓 키와 Summary를 기반으로 브랜치명을 생성해 아래 형식으로 출력:
+
+   **브랜치명 생성 규칙:**
+   - KAN 프로젝트 → `feature/pin-plate/KAN-{번호}-{슬러그}` (base: `pin-plate`)
+   - GAD 프로젝트 → `feature/ghost-dev/GAD-{번호}-{슬러그}` (base: `ghost-dev`)
+   - 슬러그: Summary에서 핵심 단어 2~4개 추출, 영어 소문자, 단어 구분은 `-`
+     - 예) "마커 클릭 이벤트 중복 등록 수정" → `fix-marker-click-duplicate`
+     - 예) "워크스페이스 보드 필터 개선" → `improve-workspace-board-filter`
+
+   **출력 형식:**
+   ```
+   티켓이 생성되었습니다!
+   🔗 https://...atlassian.net/browse/{티켓-키}
+
+   📌 추천 브랜치명:
+   feature/{앱}/{티켓-키}-{슬러그}
+
+   git checkout -b feature/{앱}/{티켓-키}-{슬러그} {베이스-브랜치}
+   ```
 
 ## 주의사항
 
