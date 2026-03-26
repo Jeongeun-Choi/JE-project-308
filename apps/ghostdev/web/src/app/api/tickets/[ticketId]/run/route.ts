@@ -83,7 +83,10 @@ export async function POST(_request: NextRequest, { params }: Params) {
     .single<AgentRun>();
 
   if (!run) {
-    return NextResponse.json({ error: "Failed to create run" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to create run" },
+      { status: 500 },
+    );
   }
 
   const dispatchInputs: DispatchInputs = {
@@ -92,7 +95,7 @@ export async function POST(_request: NextRequest, { params }: Params) {
     ticket_title: ticket.title,
     ticket_description: ticket.description ?? "",
     base_branch: ticket.base_branch ?? project.default_branch,
-    branch_prefix: ticket.branch_prefix ?? 'feature',
+    branch_prefix: ticket.branch_prefix ?? "feature",
     callback_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/runs/${run.id}/callback`,
     callback_token: callbackToken,
     target_workspace: ticket.target_workspace ?? "",
@@ -126,10 +129,16 @@ export async function POST(_request: NextRequest, { params }: Params) {
 
     return NextResponse.json({ runId: run.id }, { status: 201 });
   } catch (error) {
-    await supabase.from("ghostdev_agent_runs").update({ status: "FAILURE" }).eq("id", run.id);
+    await supabase
+      .from("ghostdev_agent_runs")
+      .update({ status: "FAILURE" })
+      .eq("id", run.id);
 
     const message = error instanceof Error ? error.message : String(error);
     console.error("workflow_dispatch 실패:", message);
-    return NextResponse.json({ error: "Failed to dispatch workflow" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to dispatch workflow" },
+      { status: 500 },
+    );
   }
 }

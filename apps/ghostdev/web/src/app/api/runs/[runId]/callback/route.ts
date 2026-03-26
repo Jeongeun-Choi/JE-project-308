@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { createServiceClient } from '@/lib/supabase/service';
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { createServiceClient } from "@/lib/supabase/service";
 
 interface Params {
   params: Promise<{ runId: string }>;
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Invalid request', details: parsed.error.flatten() },
+      { error: "Invalid request", details: parsed.error.flatten() },
       { status: 400 },
     );
   }
@@ -30,24 +30,24 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   // callback_token 검증
   const { data: run } = await supabase
-    .from('ghostdev_agent_runs')
-    .select('id, callback_token')
-    .eq('id', runId)
+    .from("ghostdev_agent_runs")
+    .select("id, callback_token")
+    .eq("id", runId)
     .single();
 
   if (!run || run.callback_token !== parsed.data.callbackToken) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   // 토큰 사용량 저장
   await supabase
-    .from('ghostdev_agent_runs')
+    .from("ghostdev_agent_runs")
     .update({
       prompt_tokens: parsed.data.promptTokens,
       completion_tokens: parsed.data.completionTokens,
       total_tokens: parsed.data.totalTokens,
     })
-    .eq('id', runId);
+    .eq("id", runId);
 
   return NextResponse.json({ ok: true });
 }

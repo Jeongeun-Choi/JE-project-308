@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import * as s from './TopNav.css';
-import { RepoDropdown } from './RepoDropdown';
-import { SignOutButton } from './SignOutButton';
-import { useCreateProject } from '@/features/projects/hooks';
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import * as s from "./TopNav.css";
+import { RepoDropdown } from "./RepoDropdown";
+import { SignOutButton } from "./SignOutButton";
+import { useCreateProject } from "@/features/projects/hooks";
 
 interface TopNavProps {
   userLogin?: string;
@@ -39,8 +39,8 @@ export function TopNav({ userLogin, userAvatar }: TopNavProps) {
 
     if (result.secretsInstalled === false) {
       alert(
-        '레포 시크릿 자동 등록에 실패했습니다.\n' +
-          'GitHub Settings > Secrets에서 ANTHROPIC_API_KEY를 직접 등록해주세요.',
+        "레포 시크릿 자동 등록에 실패했습니다.\n" +
+          "GitHub Settings > Secrets에서 ANTHROPIC_API_KEY를 직접 등록해주세요.",
       );
     }
 
@@ -64,7 +64,7 @@ export function TopNav({ userLogin, userAvatar }: TopNavProps) {
       {/* 유저 정보 */}
       <div className={s.userSection}>
         <div className={s.userInfo}>
-          <span className={s.userName}>{userLogin ?? 'GHOST_OPERATOR'}</span>
+          <span className={s.userName}>{userLogin ?? "GHOST_OPERATOR"}</span>
           <div className={s.secureLink}>
             <span className={s.secureDot} />
             SECURE_LINK
@@ -74,7 +74,7 @@ export function TopNav({ userLogin, userAvatar }: TopNavProps) {
           {userAvatar ? (
             <Image src={userAvatar} alt="avatar" width={36} height={36} />
           ) : (
-            <div style={{ width: 36, height: 36, background: '#1a3040' }} />
+            <div style={{ width: 36, height: 36, background: "#1a3040" }} />
           )}
         </div>
         <SignOutButton />

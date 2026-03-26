@@ -1,14 +1,17 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import type { WorkspaceConfig } from '@/types';
-import * as s from './CreateTicketModal.css';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import type { WorkspaceConfig } from "@/types";
+import * as s from "./CreateTicketModal.css";
 
-const BRANCH_PREFIXES = ['feature', 'bugfix', 'chore', 'refactor'] as const;
+const BRANCH_PREFIXES = ["feature", "bugfix", "chore", "refactor"] as const;
 
 const fallbackSlug = (title: string) =>
-  title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  title
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
 
 interface Props {
   projectId: string;
@@ -26,13 +29,15 @@ export function CreateTicketModal({
   defaultWorkspace,
 }: Props) {
   const router = useRouter();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [baseBranch, setBaseBranch] = useState(defaultBranch);
-  const [targetWorkspace, setTargetWorkspace] = useState<string>(defaultWorkspace ?? '');
+  const [targetWorkspace, setTargetWorkspace] = useState<string>(
+    defaultWorkspace ?? "",
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [branchPrefix, setBranchPrefix] = useState<string>('feature');
-  const [generatedSlug, setGeneratedSlug] = useState('');
+  const [branchPrefix, setBranchPrefix] = useState<string>("feature");
+  const [generatedSlug, setGeneratedSlug] = useState("");
   const [isGeneratingSlug, setIsGeneratingSlug] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,9 +46,9 @@ export function CreateTicketModal({
 
     setIsSubmitting(true);
     try {
-      const res = await fetch('/api/tickets', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/tickets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           projectId,
           title: title.trim(),
@@ -53,7 +58,7 @@ export function CreateTicketModal({
           targetWorkspace: targetWorkspace || null,
         }),
       });
-      if (!res.ok) throw new Error('Failed to create ticket');
+      if (!res.ok) throw new Error("Failed to create ticket");
       router.refresh();
       onClose();
     } catch (err) {
@@ -65,19 +70,19 @@ export function CreateTicketModal({
 
   useEffect(() => {
     if (!title.trim()) {
-      setGeneratedSlug('');
+      setGeneratedSlug("");
       return;
     }
 
     const timer = setTimeout(async () => {
       setIsGeneratingSlug(true);
       try {
-        const res = await fetch('/api/generate-branch-name', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const res = await fetch("/api/generate-branch-name", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ title: title.trim() }),
         });
-        if (!res.ok) throw new Error('Failed');
+        if (!res.ok) throw new Error("Failed");
         const { slug } = await res.json();
         setGeneratedSlug(slug);
       } catch {
@@ -95,11 +100,16 @@ export function CreateTicketModal({
     : null;
 
   return (
-    <div className={s.overlay} onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <div
+      className={s.overlay}
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
       <div className={s.modal}>
         <div className={s.modalHeader}>
-          <span className={s.modalTitle}>// INIT_TASK</span>
-          <button className={s.closeButton} onClick={onClose}>✕</button>
+          <span className={s.modalTitle}>{"// INIT_TASK"}</span>
+          <button className={s.closeButton} onClick={onClose}>
+            ✕
+          </button>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -120,7 +130,7 @@ export function CreateTicketModal({
                   <button
                     key={prefix}
                     type="button"
-                    className={`${s.prefixButton}${branchPrefix === prefix ? ` ${s.prefixButtonActive}` : ''}`}
+                    className={`${s.prefixButton}${branchPrefix === prefix ? ` ${s.prefixButtonActive}` : ""}`}
                     onClick={() => setBranchPrefix(prefix)}
                   >
                     {prefix}/
@@ -174,9 +184,13 @@ export function CreateTicketModal({
           </div>
 
           <div className={s.modalFooter}>
-            <button type="submit" className={s.submitButton} disabled={isSubmitting || !title.trim()}>
+            <button
+              type="submit"
+              className={s.submitButton}
+              disabled={isSubmitting || !title.trim()}
+            >
               <span className={s.submitInner}>
-                {isSubmitting ? 'EXECUTING...' : '> EXECUTE'}
+                {isSubmitting ? "EXECUTING..." : "> EXECUTE"}
               </span>
             </button>
           </div>

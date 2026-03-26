@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
 /**
  * Service role 클라이언트 — RLS를 우회하여 서버 간 통신에 사용.

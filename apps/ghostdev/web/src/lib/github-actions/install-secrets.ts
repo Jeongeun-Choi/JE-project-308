@@ -1,5 +1,5 @@
-import type { Octokit } from '@octokit/rest';
-import sodium from 'libsodium-wrappers';
+import type { Octokit } from "@octokit/rest";
+import sodium from "libsodium-wrappers";
 
 type OctokitInstance = InstanceType<typeof Octokit>;
 

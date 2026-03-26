@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
         .replace(/^-|-$/g, "") || fallbackSlug(parsed.data.title);
 
     return NextResponse.json({ slug });
-  } catch (error) {
+  } catch {
     const fallback = fallbackSlug(parsed.data.title);
     return NextResponse.json({ slug: fallback });
   }
