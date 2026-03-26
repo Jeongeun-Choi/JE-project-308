@@ -35,9 +35,8 @@ export default async function ProjectsPage() {
                 <span>{project.repo_full_name}</span>
                 {project.workspace_config && (
                   <span className={s.monorepoBadge}>
-                    {"// MONOREPO · "}
-                    {project.workspace_config.packages.length}
-                    {" PKG"}
+                    {"// MONOREPO"} · {project.workspace_config.packages.length}{" "}
+                    PKG
                   </span>
                 )}
               </div>
