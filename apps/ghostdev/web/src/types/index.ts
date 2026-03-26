@@ -74,6 +74,9 @@ export interface AgentRun {
   github_run_url: string | null;
   status: RunStatus;
   dispatch_inputs: string | null;
+  prompt_tokens: number | null;
+  completion_tokens: number | null;
+  total_tokens: number | null;
   started_at: string | null;
   completed_at: string | null;
   created_at: string;
