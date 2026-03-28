@@ -1,5 +1,7 @@
 // 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { MyPageHeader, MyPageMenu } from '@/features/my-page';
 import * as styles from './page.css';
 

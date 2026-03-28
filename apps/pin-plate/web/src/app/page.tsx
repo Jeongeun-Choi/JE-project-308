@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useAtomValue } from 'jotai';
 import { viewModeAtom } from '@/app/atoms';
 import { Map } from '@/features/map/components/Map';
