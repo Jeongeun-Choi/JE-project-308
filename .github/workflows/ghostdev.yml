@@ -4,45 +4,45 @@ on:
   workflow_dispatch:
     inputs:
       run_id:
-        description: 'GhostDev run ID'
+        description: "GhostDev run ID"
         required: true
         type: string
       ticket_id:
-        description: 'Ticket ID'
+        description: "Ticket ID"
         required: true
         type: string
       ticket_title:
-        description: 'Ticket title'
+        description: "Ticket title"
         required: true
         type: string
       ticket_description:
-        description: 'Ticket description'
+        description: "Ticket description"
         required: false
         type: string
-        default: ''
+        default: ""
       base_branch:
-        description: 'Base branch to checkout'
+        description: "Base branch to checkout"
         required: false
         type: string
-        default: 'main'
+        default: "main"
       branch_prefix:
-        description: 'Branch prefix (feature, bugfix, chore, refactor)'
+        description: "Branch prefix (feature, bugfix, chore, refactor)"
         required: false
         type: string
-        default: 'feature'
+        default: "feature"
       callback_url:
-        description: 'GhostDev callback URL (for reporting token usage)'
+        description: "GhostDev callback URL (for reporting token usage)"
         required: true
         type: string
       callback_token:
-        description: 'One-time callback auth token'
+        description: "One-time callback auth token"
         required: true
         type: string
       target_workspace:
-        description: 'Target workspace/package path (monorepo)'
+        description: "Target workspace/package path (monorepo)"
         required: false
         type: string
-        default: ''
+        default: ""
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -67,7 +67,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Authenticate with GitHub Packages
         run: |
