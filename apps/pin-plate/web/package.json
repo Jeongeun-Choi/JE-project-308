@@ -6,7 +6,7 @@
     "dev": "next dev --webpack -H 0.0.0.0",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint '**/*.{ts,tsx}'",
     "prettier": "prettier .",
     "test": "vitest"
   },
